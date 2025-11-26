@@ -53,6 +53,7 @@ const translations: Translations = {
   'detail.generating_basic': { en: 'Writing book summary...', fr: 'Rédaction de la fiche...' },
   'detail.influences': { en: 'Influences & Context', fr: 'Influences & Contexte' },
   'detail.related': { en: 'You might also like', fr: 'Vous aimerez aussi' },
+  'detail.classic_recs': { en: 'Echoes from the Past (1500-1850)', fr: 'Échos du Passé (1500-1850)' },
   'detail.preview_mode': { en: 'Preview Mode', fr: 'Mode Aperçu' },
   'detail.preview_desc': { en: 'This is a generated suggestion. Click below to create the full book sheet.', fr: 'Ceci est une suggestion. Cliquez ci-dessous pour générer la fiche complète.' },
   'detail.toast_added': { en: 'Added to Library', fr: 'Ajouté à la bibliothèque' },

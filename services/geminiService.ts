@@ -57,6 +57,9 @@ export const identifyBookFromImage = async (base64Image: string, lang: 'en' | 'f
             recommendations: [
                 { title: 'Similar Mock Book 1', author: 'Author A' },
                 { title: 'Similar Mock Book 2', author: 'Author B' }
+            ],
+            classicRecommendations: [
+                { title: 'Classic Mock Book', author: 'Old Author', year: '1750' }
             ]
         }), 2000));
     }
@@ -84,6 +87,7 @@ export const identifyBookFromImage = async (base64Image: string, lang: 'en' | 'f
                         - a guess at the philosophy or genre (category)
                         - 3 short bullet points of main ideas
                         - 'recommendations': an array of 3 objects {title, author} of books similar to this one.
+                        - 'classicRecommendations': an array of 1-3 objects {title, author, year} of books PUBLISHED BETWEEN 1500 AND 1850 that share themes/philosophy with the identified book. If no strong thematic link exists to that era, return an empty array.
                         ${langInstruction} 
                         If no book is clearly visible, return null.`
                     }
@@ -111,9 +115,20 @@ export const identifyBookFromImage = async (base64Image: string, lang: 'en' | 'f
                                     author: { type: Type.STRING }
                                 }
                             }
+                        },
+                        classicRecommendations: {
+                            type: Type.ARRAY,
+                            items: {
+                                type: Type.OBJECT,
+                                properties: {
+                                    title: { type: Type.STRING },
+                                    author: { type: Type.STRING },
+                                    year: { type: Type.STRING }
+                                }
+                            }
                         }
                     },
-                    required: ["title", "author", "summary", "category", "recommendations"]
+                    required: ["title", "author", "summary", "category", "recommendations", "classicRecommendations"]
                 }
             }
         });
@@ -130,6 +145,7 @@ export const identifyBookFromImage = async (base64Image: string, lang: 'en' | 'f
             category: data.category,
             mainIdeas: data.mainIdeas,
             recommendations: data.recommendations,
+            classicRecommendations: data.classicRecommendations,
             status: 'To Read',
             coverUrl: '' 
         };
@@ -150,7 +166,8 @@ export const searchBookByQuery = async (query: string, lang: 'en' | 'fr' = 'en')
             status: 'To Read',
             category: 'Simulation',
             mainIdeas: ['Mock idea 1', 'Mock idea 2'],
-            recommendations: []
+            recommendations: [],
+            classicRecommendations: []
         }), 1500));
     }
 
@@ -167,6 +184,7 @@ export const searchBookByQuery = async (query: string, lang: 'en' | 'fr' = 'en')
         - a guess at the philosophy or genre (category)
         - 3 short bullet points of main ideas
         - 'recommendations': an array of 3 objects {title, author} of books similar to this one.
+        - 'classicRecommendations': an array of 1-3 objects {title, author, year} of books PUBLISHED BETWEEN 1500 AND 1850 that share themes/philosophy with the identified book. If no strong thematic link exists to that era, return an empty array.
         ${langInstruction}
         If the query is nonsense, return null.`;
 
@@ -195,9 +213,20 @@ export const searchBookByQuery = async (query: string, lang: 'en' | 'fr' = 'en')
                                     author: { type: Type.STRING }
                                 }
                             }
+                        },
+                        classicRecommendations: {
+                            type: Type.ARRAY,
+                            items: {
+                                type: Type.OBJECT,
+                                properties: {
+                                    title: { type: Type.STRING },
+                                    author: { type: Type.STRING },
+                                    year: { type: Type.STRING }
+                                }
+                            }
                         }
                     },
-                    required: ["title", "author", "summary", "category", "recommendations"]
+                    required: ["title", "author", "summary", "category", "recommendations", "classicRecommendations"]
                 }
             }
         });
@@ -213,6 +242,7 @@ export const searchBookByQuery = async (query: string, lang: 'en' | 'fr' = 'en')
             category: data.category,
             mainIdeas: data.mainIdeas,
             recommendations: data.recommendations,
+            classicRecommendations: data.classicRecommendations,
             status: 'To Read',
             coverUrl: '' // No cover for text search yet
         };

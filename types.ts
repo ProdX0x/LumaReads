@@ -15,6 +15,7 @@ export interface Book {
   historicalContext?: string;
   detailedBio?: string;
   recommendations?: { title: string; author: string }[];
+  classicRecommendations?: { title: string; author: string; year: string }[];
 }
 
 export interface Author {

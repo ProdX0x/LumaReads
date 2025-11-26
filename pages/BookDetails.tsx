@@ -72,11 +72,12 @@ const BookDetails: React.FC = () => {
       }
   };
 
-  const handleRecommendationClick = (rec: { title: string; author: string }) => {
+  const handleRecommendationClick = (rec: { title: string; author: string; year?: string }) => {
       const stubBook: Book = {
           id: `rec-${Date.now()}`, 
           title: rec.title,
           author: rec.author,
+          year: rec.year,
           status: 'To Read',
           coverUrl: 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=2730&auto=format&fit=crop&ixlib=rb-4.0.3', // Generic texture cover
       };
@@ -306,6 +307,31 @@ const BookDetails: React.FC = () => {
                     </details>
                 )}
             </div>
+
+            {/* CLASSIC RECOMMENDATIONS (1500-1850) */}
+            {book.classicRecommendations && book.classicRecommendations.length > 0 && (
+                 <div className="mt-6 mb-2">
+                    <div className="flex items-center gap-2 mb-3 px-1">
+                        <span className="material-symbols-outlined text-gold text-xl">history_edu</span>
+                        <h3 className="font-serif-display text-lg font-bold text-gold">{t('detail.classic_recs')}</h3>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        {book.classicRecommendations.map((rec, idx) => (
+                             <button 
+                                key={idx} 
+                                onClick={() => handleRecommendationClick(rec)}
+                                className="w-full p-4 bg-gradient-to-r from-[#2c241b] to-[#1e1915] rounded-xl border border-gold/30 hover:border-gold/60 transition-all flex items-center justify-between group shadow-lg"
+                             >
+                                 <div className="text-left">
+                                     <h4 className="font-bold text-base text-[#e8d5b5] group-hover:text-white transition-colors font-serif-display">{rec.title}</h4>
+                                     <p className="text-xs text-gold/70 mt-1">{rec.author} <span className="text-white/30 mx-1">•</span> {rec.year}</p>
+                                 </div>
+                                 <span className="material-symbols-outlined text-gold group-hover:translate-x-1 transition-transform">arrow_forward_ios</span>
+                             </button>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Recommendations Section */}
             {book.recommendations && book.recommendations.length > 0 && (
