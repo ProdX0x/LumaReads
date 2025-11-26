@@ -1,0 +1,7 @@
+{
+  "name": "LumaReads",
+  "description": "A book explorer, scanner, and tracker with a solarpunk aesthetic. Solarpunk Library",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
